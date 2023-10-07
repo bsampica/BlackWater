@@ -2,10 +2,17 @@
 /shelf/
 /workspace.xml
 # Rider ignored files
+<<<<<<< HEAD
 /modules.xml
 /projectSettingsUpdater.xml
 /contentModel.xml
 /.idea.BlackWater.iml
+=======
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.BlackWater.iml
+/modules.xml
+>>>>>>> 9ae8be44c7dc1135475d941bb260cd767d00aab8
 # Editor-based HTTP Client requests
 /httpRequests/
 # Datasource local storage ignored files

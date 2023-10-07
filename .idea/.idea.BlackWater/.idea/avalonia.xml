@@ -3,7 +3,11 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+<<<<<<< HEAD
         <entry key="Views/MainView.axaml" value="BlackWater.csproj" />
+=======
+        <entry key="Views/MainWindow.axaml" value="BlackWater.csproj" />
+>>>>>>> 9ae8be44c7dc1135475d941bb260cd767d00aab8
       </map>
     </option>
   </component>
