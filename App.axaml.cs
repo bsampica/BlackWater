@@ -21,5 +21,8 @@ public partial class App : Application
             singleView.MainView = new MainView();
 
         base.OnFrameworkInitializationCompleted();
+
+        TelemetryConnection.ConnectAsync().Wait();
+        TelemetryConnection.PublishLoopAsync().Wait();
     }
 }
