@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -23,9 +24,13 @@ public partial class App : Application
 
         base.OnFrameworkInitializationCompleted();
 
-        TelemetryConnection.ConnectAsync();
-        TelemetryConnection.PublishLoopAsync();
-        // TelemetryConnection.PublishLoopAsync();
-        // TelemetryConnection.PublishLoopAsync().RunInBackground();
+        var tc = new TelemetryConnection();
+
+        Task.Run(async () =>
+        {
+            await tc.ConnectAsync().ContinueWith((s) => tc.PublishLoopAsync());
+            // await tc.PublishLoopAsync();
+        });
+        
     }
 }
