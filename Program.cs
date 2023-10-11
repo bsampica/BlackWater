@@ -14,6 +14,7 @@ class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        
         var builder = BuildAvaloniaApp();
         if (args.Contains("--drm"))
         {

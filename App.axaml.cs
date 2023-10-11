@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using BlackWater.ViewModels;
 using BlackWater.Views;
+using MQTTnet.Internal;
 
 namespace BlackWater;
 
@@ -22,7 +23,9 @@ public partial class App : Application
 
         base.OnFrameworkInitializationCompleted();
 
-        TelemetryConnection.ConnectAsync().Wait();
-        TelemetryConnection.PublishLoopAsync().Wait();
+        TelemetryConnection.ConnectAsync();
+        TelemetryConnection.PublishLoopAsync();
+        // TelemetryConnection.PublishLoopAsync();
+        // TelemetryConnection.PublishLoopAsync().RunInBackground();
     }
 }

@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using DynamicData;
 using MQTTnet;
 using MQTTnet.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using MQTTnet.Extensions.ManagedClient;
 
 namespace BlackWater;
 
 public class TelemetryConnection
 {
-    private static IMqttClient? mqttClient;
-    private static MqttClientOptions? mqttOptions;
+    private static IManagedMqttClient? mqttClient;
+    private static ManagedMqttClientOptions? mqttOptions;
     private static string server = "";
     private static string username = "";
     private static string password = "";
@@ -23,44 +23,70 @@ public class TelemetryConnection
 
     public TelemetryConnection()
     {
+        Console.WriteLine("Constructing Telemetry Connection: ");
+    }
+
+    public static void ConnectAsync(CancellationToken token = default)
+    {
+        Console.WriteLine("Entering ConnectAsync (Currently not Async)");
         var factory = new MqttFactory();
-        mqttClient = factory.CreateMqttClient();
+        //mqttClient = factory.CreateMqttClient();
+        mqttClient = factory.CreateManagedMqttClient();
 
-        server = "razzel-dazzel.azure-devices.net";
-        clientId = "lpb-1";
+        server = "broker.hivemq.com";
+        clientId = Guid.NewGuid().ToString() + "-lpb1";
 
-        username = $"{server}/{clientId}/api-version=2018-06-30";
+        username = $"{server}/{clientId}/?api-version=2021-04-12";
+        password = "JJJ1tZKo/Z/x41qhSxSKnrbbzYIPCNc5ZAIoTNqTjBc=";
         topicD2C = $"devices/{clientId}/messages/events/";
         topicC2D = $"devices/{clientId}/messages/devicebound/#";
 
-        Console.WriteLine($"MQTT Server:{server} Username:{username} ClientID:{clientId}");
+        Console.WriteLine($"MQTT Server:{server} | Username:{username} | ClientID:{clientId}");
+        Console.WriteLine($"Mqtt Client Connecting");
 
-        mqttOptions = new MqttClientOptionsBuilder()
-                        .WithTcpServer(server, 8883)
-                        .WithCredentials(username, "JJJ1tZKo/Z/x41qhSxSKnrbbzYIPCNc5ZAIoTNqTjBc=")
-                        .WithClientId(clientId)
-                        .WithTlsOptions(new MqttClientTlsOptions() { UseTls = true })
-                        .Build();
+        var clientOptions = new MqttClientOptionsBuilder()
+            .WithTcpServer(server, 8883)
+            //.WithCredentials(username, password)
+            .WithClientId(clientId)
+            .WithTlsOptions(new MqttClientTlsOptions() { UseTls = true });
 
-        mqttClient.ApplicationMessageReceivedAsync += Client_HandleReceiveMessage;
-        mqttClient.ConnectedAsync += Client_ConnectedAsync;
-        mqttClient.DisconnectedAsync += Client_DisconnectedAsync;
-        mqttClient.ConnectingAsync += ClientConnectingAsync;
+        mqttOptions = new ManagedMqttClientOptionsBuilder()
+                         .WithClientOptions(clientOptions)
+                         .Build();
+
+        mqttClient.ConnectedAsync += ClientConnected;
+        mqttClient.DisconnectedAsync += ClientDisconnected;
+        mqttClient.ConnectingFailedAsync += ClientConnectFailed;
+        mqttClient.ConnectionStateChangedAsync += ClientConnectionStateFailed;
+        mqttClient.StartAsync(mqttOptions);
+
     }
 
-    public static async Task ConnectAsync(CancellationToken token = default)
+    private static Task ClientConnectionStateFailed(EventArgs args)
     {
-        if (mqttClient is not null)
-            await mqttClient.ConnectAsync(mqttOptions, token);
+        Console.WriteLine(args);
+        return Task.CompletedTask;
     }
 
-    public static async Task SubscribeAsync(CancellationToken token = default)
+    private static Task ClientConnectFailed(ConnectingFailedEventArgs args)
     {
-        if (mqttClient is not null)
-            await mqttClient.SubscribeAsync(topicC2D, MQTTnet.Protocol.MqttQualityOfServiceLevel.ExactlyOnce, token);
+        Console.WriteLine(args);
+        return Task.CompletedTask;
     }
 
-    public static async Task PublishLoopAsync()
+    private static Task ClientDisconnected(MqttClientDisconnectedEventArgs args)
+    {
+        Console.WriteLine(args);
+        return Task.CompletedTask;
+    }
+
+    private static Task ClientConnected(MqttClientConnectedEventArgs args)
+    {
+        Console.WriteLine(args);
+        return Task.CompletedTask;
+    }
+
+    public static void PublishLoopAsync()
     {
         while (true)
         {
@@ -79,31 +105,9 @@ public class TelemetryConnection
 
             Console.WriteLine("Publishing Message Async: Start");
 
-            if (mqttClient is not null)
-                await mqttClient.PublishAsync(message);
-
-            Console.WriteLine("Publishing Message Async: Finish");
-            await Task.Delay(3000);
+            Console.WriteLine($"IsConnected: {mqttClient!.IsConnected}");
+            mqttClient.EnqueueAsync(message).Wait(); 
+            Thread.Sleep(3000);
         }
-    }
-
-    private async Task ClientConnectingAsync(MqttClientConnectingEventArgs args)
-    {
-        Console.WriteLine(args);
-    }
-
-    private async Task Client_DisconnectedAsync(MqttClientDisconnectedEventArgs args)
-    {
-        Console.WriteLine(args);
-    }
-
-    private async Task Client_ConnectedAsync(MqttClientConnectedEventArgs args)
-    {
-        Console.WriteLine(args);
-    }
-
-    private async Task Client_HandleReceiveMessage(MqttApplicationMessageReceivedEventArgs args)
-    {
-        Console.WriteLine(args);
     }
 }
