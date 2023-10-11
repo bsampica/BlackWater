@@ -4,5 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BlackWater.MainView">
-  Welcome to Avalonia!
+  
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Background="Black"></Border>
+        <Border Grid.Row="1" Background="DimGray"></Border>
+        <Border Grid.Row="2" Background="White"></Border>
+    </Grid>
 </UserControl>

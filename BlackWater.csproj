@@ -28,4 +28,12 @@
     <PackageReference Include="Mqttnet.extensions.managedclient" Version="4.3.1.873" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Views\FlowRateControl.axaml.cs">
+      <DependentUpon>FlowRateControl.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>
