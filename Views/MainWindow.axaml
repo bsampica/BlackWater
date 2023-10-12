@@ -3,7 +3,7 @@
         xmlns:vm="using:BlackWater.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:blackWater="clr-namespace:BlackWater"
+        xmlns:views="clr-namespace:BlackWater.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="BlackWater.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -15,7 +15,5 @@
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-
- <blackWater:MainView />
-
+ <views:MainView />
 </Window>

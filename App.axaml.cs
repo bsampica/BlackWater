@@ -23,16 +23,14 @@ public partial class App : Application
 
         base.OnFrameworkInitializationCompleted();
 
-        var tc = new TelemetryConnection();
-        Task.Run(() =>
-        {
-            tc.ConnectAsync().ContinueWith(async (task) =>
-            {
-                await tc.SubscribeAsync();
-                await tc.PublishLoopAsync();
-            });
-        
-            // await tc.PublishLoopAsync();
-        });
+        // var tc = new TelemetryConnection();
+        // Task.Run(() =>
+        // {
+        //     tc.ConnectAsync().ContinueWith(async (_) => // (_) to dispose of the task using the _ underscore notation
+        //     {
+        //         await tc.SubscribeAsync();
+        //         await tc.PublishLoopAsync();
+        //     });
+        // });
     }
 }

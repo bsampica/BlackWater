@@ -1,6 +1,5 @@
 ﻿using Avalonia;
 using Avalonia.LinuxFramebuffer.Output;
-using Avalonia.ReactiveUI;
 using System;
 using System.Linq;
 
@@ -38,6 +37,5 @@ class Program
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .WithInterFont()
-            .LogToTrace()
-            .UseReactiveUI();
+            .LogToTrace();
 }

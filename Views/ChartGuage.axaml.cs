@@ -2,11 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace BlackWater;
+namespace BlackWater.Views;
 
-public partial class FlowRateControl : UserControl
+public partial class ChartGuage : UserControl
 {
-    public FlowRateControl()
+    public ChartGuage()
     {
         InitializeComponent();
     }
