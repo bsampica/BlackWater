@@ -1,8 +1,9 @@
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using BlackWater.ViewModels;
 using BlackWater.Views;
+using BlackWater.Mqtt;
 
 namespace BlackWater;
 
@@ -21,5 +22,15 @@ public partial class App : Application
             singleView.MainView = new MainView();
 
         base.OnFrameworkInitializationCompleted();
+
+        // var tc = new TelemetryConnection();
+        // Task.Run(() =>
+        // {
+        //     tc.ConnectAsync().ContinueWith(async (_) => // (_) to dispose of the task using the _ underscore notation
+        //     {
+        //         await tc.SubscribeAsync();
+        //         await tc.PublishLoopAsync();
+        //     });
+        // });
     }
 }

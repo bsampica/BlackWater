@@ -1,8 +1,8 @@
-using Avalonia;
+using System;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+using BlackWater.ViewModels;
 
-namespace BlackWater;
+namespace BlackWater.Views;
 
 public partial class MainView : UserControl
 {

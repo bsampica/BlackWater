@@ -1,6 +1,5 @@
 ﻿using Avalonia;
 using Avalonia.LinuxFramebuffer.Output;
-using Avalonia.ReactiveUI;
 using System;
 using System.Linq;
 
@@ -14,6 +13,7 @@ class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        
         var builder = BuildAvaloniaApp();
         if (args.Contains("--drm"))
         {
@@ -37,6 +37,5 @@ class Program
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .WithInterFont()
-            .LogToTrace()
-            .UseReactiveUI();
+            .LogToTrace();
 }
