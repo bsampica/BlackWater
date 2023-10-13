@@ -1,4 +1,6 @@
+using System;
 using Avalonia.Controls;
+using BlackWater.ViewModels;
 
 namespace BlackWater.Views;
 

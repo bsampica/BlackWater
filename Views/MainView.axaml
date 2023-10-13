@@ -5,7 +5,7 @@
              xmlns:views="clr-namespace:BlackWater.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BlackWater.Views.MainView">
-  
+
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"></RowDefinition>
@@ -15,6 +15,12 @@
         <Border Background="Black"></Border>
         <Border Grid.Row="1" Background="DimGray"></Border>
         <Border Grid.Row="2" Background="White">
+            <UniformGrid HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch"
+                         Rows="2" Columns="4">
+            </UniformGrid>
+
+
             <!-- MAIN CONTENT AREA  -->
         </Border>
     </Grid>
