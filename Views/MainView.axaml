@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:BlackWater.Views"
+             xmlns:controls="clr-namespace:BlackWater.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BlackWater.Views.MainView">
 
@@ -16,8 +17,12 @@
         <Border Grid.Row="1" Background="DimGray"></Border>
         <Border Grid.Row="2" Background="White">
             <UniformGrid HorizontalAlignment="Stretch"
-                         VerticalAlignment="Stretch"
-                         Rows="2" Columns="4">
+                         VerticalAlignment="Stretch">
+                <controls:GaugeChartControl Loaded="Control_OnLoaded" ChartTitle="PUMP 1" NeedleValue="45" />
+                <controls:GaugeChartControl Loaded="Control_OnLoaded" ChartTitle="PUMP 2" NeedleValue="45" />
+                <controls:GaugeChartControl Loaded="Control_OnLoaded" ChartTitle="PUMP 3" NeedleValue="45" />
+                <controls:GaugeChartControl Loaded="Control_OnLoaded" ChartTitle="PUMP 4" NeedleValue="45" />
+
             </UniformGrid>
 
 

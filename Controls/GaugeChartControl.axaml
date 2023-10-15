@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+             xmlns:viewModels="clr-namespace:BlackWater.ViewModels"
+             xmlns:controls="clr-namespace:BlackWater.Controls"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="350"
+             x:Class="BlackWater.Controls.GaugeChartControl"
+             x:DataType="controls:GaugeChartControl">
+    
+    <!-- <UserControl.DataContext> -->
+    <!--     <viewModels:GaugeChartData /> -->
+    <!-- </UserControl.DataContext> -->
+    
+    <Grid Background="White"
+          RowDefinitions="50, *"
+          HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch">
+        <TextBlock
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="DimGray"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Text="{Binding ChartTitle}" />
+
+        <lvc:PieChart
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Series="{Binding Series}"
+            VisualElements="{Binding VisualElements}"
+            InitialRotation="-225"
+            MaxAngle="270"
+            MinValue="0"
+            MaxValue="100" />
+    </Grid>
+</UserControl>
